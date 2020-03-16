@@ -21,21 +21,21 @@ const setup = (tableName, schema) => {
 
 }
 
-const createModel = async (modelName, modelSchema) => {
+const createModel = (modelName, modelSchema) => {
 
     const model = setup(modelName, modelSchema)
 
-    await model.createCollection()
+    model.name = modelName
 
-    return {
-        name: modelName,
-        ...model
-    }
+    return model
+
 }
 
-const mapModel = async (modelName, tableName, schema, opts = {}) => {
+const mapModel = (modelName, tableName, schema, opts = {}) => {
 
-    const model = await createModel(tableName, new Schema(schema, opts))
+    const model = createModel(tableName, new Schema(schema, opts))
+
+    model.createCollection()
 
     models[`${modelName}`] = model
 
