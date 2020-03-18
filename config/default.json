@@ -1,5 +1,14 @@
 {
     "mongodb": {
         "url": "mongodb://localhost:27017/test"
+    },
+    "logger": {
+        "console": {
+            "level": "silly"
+        },
+        "file": {
+            "level": "error",
+            "path": "./node-mongoose-respository.log"
+        }
     }
 }

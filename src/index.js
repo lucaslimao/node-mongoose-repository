@@ -1,23 +1,22 @@
 const mongoose = require('mongoose')
 const connection = require('./connection/index')
+const logger = require('./utils/logger/index')
 
 const Schema = mongoose.Schema
 
 const models = []
 
+const logPrefix = '[LOGGER]'
+
 const setup = (tableName, schema) => {
 
-    try {
+    connection()
 
-        connection()
+    logger.info(`${logPrefix}[Setup] Connection success; ${tableName}; `)
 
-        const model = mongoose.model(tableName, schema)
+    const model = mongoose.model(tableName, schema)
 
-        return model
-
-    } catch(error) {
-        throw new Error(`Erro na configuração da tabela, ${tableName}, ${error.message}`)
-    }
+    return model
 
 }
 
@@ -35,7 +34,7 @@ const mapModel = (modelName, tableName, schema, opts = {}) => {
 
     const model = createModel(tableName, new Schema(schema, opts))
 
-    model.createCollection()
+    logger.info(`${logPrefix}[Map Model] Mapping success; ${tableName}; `)
 
     models[`${modelName}`] = model
 
