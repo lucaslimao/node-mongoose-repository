@@ -32,11 +32,17 @@ const createModel = (modelName, modelSchema) => {
 
 const mapModel = (modelName, tableName, schema, opts = {}) => {
 
-    const model = createModel(tableName, new Schema(schema, opts))
+    let model = models[`${modelName}`]
 
-    logger.info(`${logPrefix}[Map Model] Mapping success; ${tableName}; `)
+    if (!model) {
 
-    models[`${modelName}`] = model
+        const model = createModel(tableName, new Schema(schema, opts))
+
+        logger.info(`${logPrefix}[Map Model] Mapping success; ${tableName}; `)
+
+        models[`${modelName}`] = model
+
+    }
 
     return repository()
 
