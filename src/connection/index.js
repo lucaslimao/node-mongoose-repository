@@ -3,4 +3,16 @@ const config = require('config')
 
 const url = config.get('mongodb.url')
 
-module.exports = () => mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+module.exports = async (buffer) => {
+
+    let opt = {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true
+    }
+
+    if (!buffer) {
+        opt = { ...opt, bufferCommands: false, bufferMaxEntries: 0 }
+    }
+
+    return await mongoose.connect(url, opt)
+}

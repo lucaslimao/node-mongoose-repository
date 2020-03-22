@@ -8,32 +8,14 @@ const schema = {
 
 describe('Mapping model', () => {
 
-    before( () => {
-        model = repository.map('Tests', 'table-tests', schema).get('Tests')
+    before( async () => {
+        repo = await repository.map('Test', 'table-test', schema, buffer = false)
+        model = repo.get('Test')
+        
     })
 
     it('Testing Created Table', () => {
-        chai.assert(model.name, 'table-tests')
-    })
-
-    it('Saving Model', async () => {   
-
-        const doc = await model.create({ name: 'Teste', email: 'teste@email.com.br' })
-
-        chai.assert.exists(doc, '_id')
-
-    })
-
-})
-
-describe('Mapping model', () => {
-
-    before( () => {
-        model = repository.map('Tests', 'table-tests', schema).get('Tests')
-    })
-
-    it('Testing Created Table', () => {
-        chai.assert(model.name, 'table-tests')
+        chai.assert(model.name, 'table-test')
     })
 
     it('Saving Model Exists', async () => {   

@@ -8,9 +8,9 @@ const models = []
 
 const logPrefix = '[LOGGER]'
 
-const setup = (tableName, schema) => {
+const setup = async (tableName, schema, buffer) => {
 
-    connection()
+    await connection(buffer)
 
     logger.info(`${logPrefix}[Setup] Connection success; ${tableName}; `)
 
@@ -20,9 +20,9 @@ const setup = (tableName, schema) => {
 
 }
 
-const createModel = (modelName, modelSchema) => {
+const createModel = async (modelName, modelSchema, buffer) => {
 
-    const model = setup(modelName, modelSchema)
+    const model = await setup(modelName, modelSchema, buffer)
 
     model.name = modelName
 
@@ -30,13 +30,13 @@ const createModel = (modelName, modelSchema) => {
 
 }
 
-const mapModel = (modelName, tableName, schema, opts = {}) => {
+const mapModel = async (modelName, tableName, schema, buffer = true, opts = {}) => {
 
     let model = models[`${modelName}`]
 
     if (!model) {
 
-        const model = createModel(tableName, new Schema(schema, opts))
+        const model = await createModel(tableName, new Schema(schema, opts), buffer)
 
         logger.info(`${logPrefix}[Map Model] Mapping success; ${tableName}; `)
 
