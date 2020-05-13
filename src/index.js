@@ -8,13 +8,18 @@ const models = []
 
 const logPrefix = '[LOGGER]'
 
+let conn = null
+
 const setup = async (tableName, schema, buffer) => {
 
     if (process.env.NOVE_ENV === 'development') {
         mongoose.set('debug', true)
     }
 
-    await connection(buffer)
+    if (!conn) {
+        logger.info(`${logPrefix} Connecting First Time. `)
+        conn = await connection(buffer)
+    }
 
     logger.info(`${logPrefix}[Setup] Connection success; ${tableName}; `)
 
