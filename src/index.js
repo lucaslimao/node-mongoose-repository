@@ -79,7 +79,9 @@ const repository = () => {
 
     return {
         map: mapModel,
-        get: getModel
+        get: getModel,
+        Schema: mongoose.Schema,
+        Types: mongoose.Types
     }
 
 }
