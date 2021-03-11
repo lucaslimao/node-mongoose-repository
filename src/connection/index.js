@@ -7,7 +7,8 @@ module.exports = async (buffer) => {
 
     let opt = {
         useNewUrlParser: true, 
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     }
 
     if (!buffer) {
@@ -15,4 +16,5 @@ module.exports = async (buffer) => {
     }
 
     return await mongoose.connect(url, opt)
+    
 }

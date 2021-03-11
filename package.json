@@ -1,6 +1,6 @@
 {
-  "name": "node-mongoose-repository",
-  "version": "0.0.7",
+  "name": "@musii.app/node-mongoose-repository",
+  "version": "0.0.8",
   "description": "Model repository using node and mongoose ",
   "main": "src/index.js",
   "scripts": {
@@ -25,7 +25,8 @@
   "dependencies": {
     "config": "3.3.0",
     "mongoose": "5.9.4",
-    "winston": "3.2.1"
+    "pino": "6.11.1",
+    "pino-pretty": "4.7.1"
   },
   "devDependencies": {
     "mocha": "7.1.0",

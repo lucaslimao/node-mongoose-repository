@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
-const connection = require('./connection/index')
-const logger = require('./utils/logger/index')
+const connection = require('./connection')
+const logger = require('./utils/logger')
 
 const Schema = mongoose.Schema
 
 const models = []
 
-const logPrefix = '[LOGGER]'
+const logPrefix = 'REPOSITORY'
 
 let conn = null
 
@@ -17,11 +17,11 @@ const setup = async (tableName, schema, buffer) => {
     }
 
     if (!conn) {
-        logger.info(`${logPrefix} Connecting First Time. `)
+        logger.info(`${logPrefix} :: SETUP :: Connecting First Time.`)
         conn = await connection(buffer)
     }
 
-    logger.info(`${logPrefix}[Setup] Connection success; ${tableName}; `)
+    logger.info(`${logPrefix} :: SETUP :: Connection success :: ${tableName}`)
 
     const model = mongoose.model(tableName, schema)
 
@@ -53,7 +53,7 @@ const mapModel = async (modelName, tableName, schema, opts = {}, indexes = [], b
 
         const model = await createModel(tableName, new Schema(schema, opts), indexes, buffer)
 
-        logger.info(`${logPrefix}[Map Model] Mapping success; ${tableName}; `)
+        logger.info(`${logPrefix} :: MAP MODEL :: SUCCESS :: ${tableName}`)
 
         models[`${modelName}`] = model
 
