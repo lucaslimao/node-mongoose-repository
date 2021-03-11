@@ -8,7 +8,8 @@ module.exports = async (buffer) => {
     let opt = {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useCreateIndex: true
     }
 
     if (!buffer) {
