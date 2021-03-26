@@ -3,13 +3,15 @@ const config = require('config')
 
 const url = config.get('mongodb.url')
 
-module.exports = async (buffer) => {
+module.exports = async (buffer, connectTimeoutMS = 10000, serverSelectionTimeoutMS = 5000) => {
 
     let opt = {
         useNewUrlParser: true, 
         useUnifiedTopology: true,
         useFindAndModify: false,
-        useCreateIndex: true
+        useCreateIndex: true,
+        connectTimeoutMS: connectTimeoutMS,
+        serverSelectionTimeoutMS: serverSelectionTimeoutMS
     }
 
     if (!buffer) {

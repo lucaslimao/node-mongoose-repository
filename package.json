@@ -1,6 +1,6 @@
 {
-  "name": "@musii.app/node-mongoose-repository",
-  "version": "0.0.9",
+  "name": "node-mongoose-repository",
+  "version": "0.0.12",
   "description": "Model repository using node and mongoose ",
   "main": "src/index.js",
   "scripts": {
