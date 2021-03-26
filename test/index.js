@@ -9,9 +9,8 @@ const schema = {
 describe('Mapping model', () => {
 
     before( async () => {
-        repo = await repository.map('Test', 'table-test', schema, buffer = false)
+        repo = await repository.map('Test', 'table-test', schema, {}, [], false, 1000, 1000)
         model = repo.get('Test')
-        
     })
 
     it('Testing Created Table', () => {
