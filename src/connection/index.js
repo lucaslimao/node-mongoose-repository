@@ -10,7 +10,6 @@ module.exports = async (buffer, reconnectTries = 1, connectTimeoutMS = 10000, se
         useUnifiedTopology: true,
         useFindAndModify: false,
         useCreateIndex: true,
-        reconnectTries: reconnectTries,
         connectTimeoutMS: connectTimeoutMS,
         serverSelectionTimeoutMS: serverSelectionTimeoutMS
     }
