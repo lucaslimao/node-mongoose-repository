@@ -10,7 +10,7 @@ const logPrefix = 'REPOSITORY'
 
 let conn = null
 
-const setup = async (tableName, schema, buffer, connectTimeoutMS, serverSelectionTimeoutMS) => {
+const setup = async (tableName, schema, buffer, reconnectTries, connectTimeoutMS, serverSelectionTimeoutMS) => {
 
     if (process.env.NOVE_ENV === 'development') {
         mongoose.set('debug', true)
@@ -18,7 +18,7 @@ const setup = async (tableName, schema, buffer, connectTimeoutMS, serverSelectio
 
     if (!conn) {
         logger.info(`${logPrefix} :: SETUP :: Connecting First Time.`)
-        conn = await connection(buffer, connectTimeoutMS, serverSelectionTimeoutMS)
+        conn = await connection(buffer, reconnectTries, connectTimeoutMS, serverSelectionTimeoutMS)
     }
 
     logger.info(`${logPrefix} :: SETUP :: Connection success :: ${tableName}`)
@@ -29,7 +29,7 @@ const setup = async (tableName, schema, buffer, connectTimeoutMS, serverSelectio
 
 }
 
-const createModel = async (modelName, modelSchema, indexes, buffer, connectTimeoutMS, serverSelectionTimeoutMS) => {
+const createModel = async (modelName, modelSchema, indexes, buffer, reconnectTries, connectTimeoutMS, serverSelectionTimeoutMS) => {
 
     indexes.map(
         i => {
@@ -37,7 +37,7 @@ const createModel = async (modelName, modelSchema, indexes, buffer, connectTimeo
         }
     )
 
-    const model = await setup(modelName, modelSchema, buffer, connectTimeoutMS, serverSelectionTimeoutMS)
+    const model = await setup(modelName, modelSchema, buffer, reconnectTries, connectTimeoutMS, serverSelectionTimeoutMS)
 
     model.name = modelName
 
@@ -45,13 +45,13 @@ const createModel = async (modelName, modelSchema, indexes, buffer, connectTimeo
 
 }
 
-const mapModel = async (modelName, tableName, schema, opts = {}, indexes = [], buffer = true, connectTimeoutMS, serverSelectionTimeoutMS) => {
+const mapModel = async (modelName, tableName, schema, opts = {}, indexes = [], buffer = true, reconnectTries, connectTimeoutMS, serverSelectionTimeoutMS) => {
 
     let model = models[`${modelName}`]
 
     if (!model) {
 
-        const model = await createModel(tableName, new Schema(schema, opts), indexes, buffer, connectTimeoutMS, serverSelectionTimeoutMS)
+        const model = await createModel(tableName, new Schema(schema, opts), indexes, buffer, reconnectTries, connectTimeoutMS, serverSelectionTimeoutMS)
 
         logger.info(`${logPrefix} :: MAP MODEL :: SUCCESS :: ${tableName}`)
 
