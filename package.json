@@ -1,6 +1,6 @@
 {
   "name": "node-mongoose-repository",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Model repository using node and mongoose ",
   "main": "src/index.js",
   "scripts": {
