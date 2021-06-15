@@ -24,7 +24,7 @@
   "homepage": "https://github.com/lucaslimao/node-mongoose-repository#readme",
   "dependencies": {
     "config": "3.3.0",
-    "mongoose": "5.9.4",
+    "mongoose": "5.12.13",
     "pino": "6.11.1",
     "pino-pretty": "4.7.1"
   },
