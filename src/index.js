@@ -10,7 +10,7 @@ const logPrefix = 'MONGOOSE REPOSITORY'
 
 let conn = null
 
-const setup = async (tableName, schema, buffer, socketTimeoutMS, serverSelectionTimeoutMS) => {
+const setup = async (tableName, schema, buffer, keepAlive, keepAliveInitialDelay, socketTimeoutMS, serverSelectionTimeoutMS) => {
 
     if (process.env.NOVE_ENV === 'development') {
         mongoose.set('debug', true)
@@ -18,7 +18,7 @@ const setup = async (tableName, schema, buffer, socketTimeoutMS, serverSelection
 
     if (!conn) {
         logger.info(`${logPrefix} :: SETUP :: Connecting First Time.`)
-        conn = await connection(buffer, socketTimeoutMS, serverSelectionTimeoutMS)
+        conn = await connection(buffer, keepAlive, keepAliveInitialDelay, socketTimeoutMS, serverSelectionTimeoutMS)
     }
 
     logger.info(`${logPrefix} :: SETUP :: Connection success :: ${tableName}`)
@@ -29,7 +29,7 @@ const setup = async (tableName, schema, buffer, socketTimeoutMS, serverSelection
 
 }
 
-const createModel = async (modelName, modelSchema, indexes, buffer, socketTimeoutMS, serverSelectionTimeoutMS) => {
+const createModel = async (modelName, modelSchema, indexes, buffer, keepAlive, keepAliveInitialDelay, socketTimeoutMS, serverSelectionTimeoutMS) => {
 
     indexes.map(
         i => {
@@ -37,7 +37,7 @@ const createModel = async (modelName, modelSchema, indexes, buffer, socketTimeou
         }
     )
 
-    const model = await setup(modelName, modelSchema, buffer, socketTimeoutMS, serverSelectionTimeoutMS)
+    const model = await setup(modelName, modelSchema, buffer, keepAlive, keepAliveInitialDelay, socketTimeoutMS, serverSelectionTimeoutMS)
 
     model.name = modelName
 
@@ -45,13 +45,13 @@ const createModel = async (modelName, modelSchema, indexes, buffer, socketTimeou
 
 }
 
-const mapModel = async (modelName, tableName, schema, opts = {}, indexes = [], buffer = true, socketTimeoutMS, serverSelectionTimeoutMS) => {
+const mapModel = async (modelName, tableName, schema, opts = {}, indexes = [], buffer = true, keepAlive, keepAliveInitialDelay, socketTimeoutMS, serverSelectionTimeoutMS) => {
 
     let model = models[`${modelName}`]
 
     if (!model) {
 
-        const model = await createModel(tableName, new Schema(schema, opts), indexes, buffer, socketTimeoutMS, serverSelectionTimeoutMS)
+        const model = await createModel(tableName, new Schema(schema, opts), indexes, buffer, keepAlive, keepAliveInitialDelay, socketTimeoutMS, serverSelectionTimeoutMS)
 
         logger.info(`${logPrefix} :: MAP MODEL :: SUCCESS :: ${tableName}`)
 

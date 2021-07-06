@@ -9,7 +9,7 @@ const schema = {
 describe('Mapping model', () => {
 
     before( async () => {
-        repo = await repository.map('Test', 'table-test', schema, {}, [], false, 1000, 1000)
+        repo = await repository.map('Test', 'table-test', schema, {}, [], false, true, 300000, 1000, 1000)
         model = repo.get('Test')
     })
 

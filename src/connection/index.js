@@ -3,7 +3,7 @@ const config = require('config')
 
 const url = config.get('mongodb.url')
 
-module.exports = async (buffer, socketTimeoutMS = 10000, serverSelectionTimeoutMS = 5000) => {
+module.exports = async (buffer, keepAlive = true, keepAliveInitialDelay = 300000, socketTimeoutMS = 20000, serverSelectionTimeoutMS = 5000) => {
 
     let opt = {
         useNewUrlParser: true, 
@@ -11,7 +11,9 @@ module.exports = async (buffer, socketTimeoutMS = 10000, serverSelectionTimeoutM
         useFindAndModify: false,
         useCreateIndex: true,
         socketTimeoutMS: socketTimeoutMS,
-        serverSelectionTimeoutMS: serverSelectionTimeoutMS
+        serverSelectionTimeoutMS: serverSelectionTimeoutMS,
+        keepAlive: keepAlive,
+        keepAliveInitialDelay: keepAliveInitialDelay
     }
 
     if (!buffer) {
