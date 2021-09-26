@@ -1,6 +1,6 @@
 {
   "name": "node-mongoose-repository",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "description": "Model repository using node and mongoose",
   "main": "src/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/lucaslimao/node-mongoose-repository#readme",
   "dependencies": {
     "config": "3.3.0",
-    "mongoose": "5.12.13",
+    "mongoose": "5.13.9",
     "pino": "6.11.1",
     "pino-pretty": "4.7.1"
   },
